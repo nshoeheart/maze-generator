@@ -19,8 +19,8 @@ public class MazeGenerator {
 	    }
 	    scan.close();
 	     
-	    // Create board and graph.
-	    n = size*size;  // number of points
+	    // Create all points to be used in the graph
+	    n = size*size;  // total number of points
 	    points = new ArrayList<Point>();
 
 	    for (int r = 1; r <= size; r++) {
@@ -29,6 +29,7 @@ public class MazeGenerator {
 	    	}
 	    }
 
+        // Create all internal edges to begin with
 	    edges = new ArrayList<Edge>();
 
 	    for (int i = 1; i <= n; i++) {
@@ -49,6 +50,7 @@ public class MazeGenerator {
         Edge edge;
         usedEdges = new ArrayList<Edge>();
 
+        // Maze generation algorithm using find and union operations on a disjoint set of points
         while (djs.getNumSets() > 1) {
             rand = randomGenerator.nextInt(edges.size());
             edge = edges.get(rand);
@@ -65,10 +67,11 @@ public class MazeGenerator {
             }
         }
 
-        printBoard();
+        printMaze();
     }
 
-    public static void printBoard() {
+    // Output the maze to the command window
+    public static void printMaze() {
     	// Print top edges
     	System.out.print("    -");
     	for (int c = 1; c <= size; c++) {
@@ -76,7 +79,7 @@ public class MazeGenerator {
     	}
     	System.out.println();
 
-    	// Iterate through all points (1, 1) through (size, size)
+    	// Iterate through all rows of points
         for (int r = 1; r <= size; r++) {
         	// Print leftmost edge
         	if (r == 1) {
@@ -85,7 +88,7 @@ public class MazeGenerator {
         		System.out.print("    |");
         	}
 
-        	// Print right edge of each cell if the edge exists, or it is the last cell in the column
+        	// Print right edge of each point if the edge exists, or if it is the last point in the column
         	for (int c = 1; c <= size; c++) {
         		if (c == size) {
         			if (r == size) {
@@ -104,7 +107,7 @@ public class MazeGenerator {
         	}
         	System.out.println();
 
-        	// Print bottom edges if the edge exists, or the cell is in the bottom row
+        	// Print bottom edges if the edge exists, or the point is in the bottom row
         	System.out.print("    -");
         	for (int c = 1; c <= size; c++) {
         		if (r == size) {

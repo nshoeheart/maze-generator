@@ -15,6 +15,7 @@ public class DisjointSet {
         }
     }
 
+    // Finds and returns the root of the set containing i
     public int find(int i) {
         int r = i;
 
@@ -53,14 +54,6 @@ public class DisjointSet {
     }
 
     public int getNumSets() {
-        int count = 0;
-
-        for (int i : up) {
-            if (i == ROOT) {
-                count++;
-            }
-        }
-
-        return count;
+        return numSets;
     }
 }
